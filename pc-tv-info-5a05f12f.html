@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>雷速 · 信息卡片平台介绍</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f2f4f7;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: #1e293b;
+      padding: 2rem 1.5rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* 页头 / hero 卡片 */
+    .hero-card {
+      background: #ffffff;
+      border-radius: 28px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+      padding: 3rem 2.5rem;
+      margin-bottom: 2.5rem;
+      border: 1px solid #e9edf2;
+      transition: box-shadow 0.2s;
+    }
+
+    .hero-card:hover {
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.07);
+    }
+
+    .hero-title {
+      font-size: 2.6rem;
+      font-weight: 550;
+      letter-spacing: -0.02em;
+      color: #0f172a;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-sub {
+      font-size: 1.2rem;
+      color: #475569;
+      max-width: 680px;
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-highlight {
+      background: #eef2f6;
+      display: inline-block;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #1e293b;
+      border: 1px solid #dce1e8;
+    }
+
+    /* 双列网格 — 用途 + 人群 */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem 1.8rem;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+      border-color: #cdd5df;
+    }
+
+    .card-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 18px;
+      background: #f1f4f9;
+      margin-bottom: 1.2rem;
+      font-size: 1.6rem;
+      border: 1px solid #dfe5ed;
+    }
+
+    .card h3 {
+      font-size: 1.35rem;
+      font-weight: 540;
+      margin-bottom: 0.75rem;
+      color: #0f172a;
+    }
+
+    .card p {
+      color: #334155;
+      margin-bottom: 0.6rem;
+    }
+
+    .card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .card li {
+      padding: 0.3rem 0;
+      padding-left: 1.4rem;
+      position: relative;
+      color: #2c3e50;
+    }
+
+    .card li::before {
+      content: "·";
+      position: absolute;
+      left: 0;
+      font-weight: 700;
+      color: #6a7b8c;
+    }
+
+    .tag-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.7rem;
+      margin-top: 0.6rem;
+    }
+
+    .tag {
+      background: #f1f5f9;
+      border-radius: 40px;
+      padding: 0.2rem 0.9rem;
+      font-size: 0.85rem;
+      color: #1e293b;
+      border: 1px solid #dde3ea;
+    }
+
+    /* 自然链接段落卡片 */
+    .link-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem 2.2rem;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+      margin-bottom: 2.5rem;
+    }
+
+    .link-card p {
+      margin-bottom: 0.9rem;
+      color: #1e293b;
+    }
+
+    .link-card a {
+      color: #0761a8;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .link-card a:hover {
+      border-bottom-color: #0761a8;
+    }
+
+    /* FAQ 摘要 — 紧凑卡片 */
+    .faq-mini {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem 2.2rem;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+      margin-bottom: 2rem;
+    }
+
+    .faq-mini h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: #5e6f82;
+      margin-bottom: 1.2rem;
+      border-left: 4px solid #b0c4d9;
+      padding-left: 0.9rem;
+    }
+
+    .faq-item {
+      display: flex;
+      gap: 0.8rem;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #edf1f6;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-q {
+      font-weight: 500;
+      min-width: 100px;
+      color: #0f172a;
+    }
+
+    .faq-a {
+      color: #334155;
+    }
+
+    .faq-a a {
+      color: #0761a8;
+      text-decoration: none;
+      font-weight: 450;
+    }
+
+    .faq-a a:hover {
+      text-decoration: underline;
+    }
+
+    /* 底部微元素 */
+    .footnote {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #6b7c8e;
+      border-top: 1px solid #dce2ea;
+      padding-top: 1.8rem;
+      margin-top: 1rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 780px) {
+      body {
+        padding: 1.2rem 0.8rem;
+      }
+
+      .hero-card {
+        padding: 2rem 1.4rem;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .grid-2col {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+
+      .card {
+        padding: 1.6rem;
+      }
+
+      .link-card,
+      .faq-mini {
+        padding: 1.6rem;
+      }
+
+      .faq-item {
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+
+      .faq-q {
+        min-width: auto;
+        font-weight: 600;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 1.7rem;
+      }
+
+      .hero-sub {
+        font-size: 1rem;
+      }
+
+      .card-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- 主视觉 hero 卡片 -->
+  <div class="hero-card">
+    <div class="hero-title">快速读懂 · 雷速</div>
+    <div class="hero-sub">
+      一个整合信息与工具导向的平台，帮助用户从零散需求中快速定位功能区块。
+      下方卡片拆解了它的用途、适用人群与信息组织方式。
+    </div>
+    <span class="hero-highlight">⚡ 专注效率 · 信息聚合</span>
+  </div>
+
+  <!-- 双列卡片：用途 + 适合人群 -->
+  <div class="grid-2col">
+    <div class="card">
+      <div class="card-icon">📋</div>
+      <h3>用途卡片</h3>
+      <p>平台围绕信息分类与轻量工具展开，常见使用方向包括：</p>
+      <ul>
+        <li>内容导航与资源索引</li>
+        <li>生活辅助类信息查询</li>
+        <li>轻量级线上工具调用</li>
+        <li>兴趣领域知识速览</li>
+      </ul>
+      <div class="tag-group">
+        <span class="tag">导航</span>
+        <span class="tag">工具</span>
+        <span class="tag">索引</span>
+        <span class="tag">快查</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">👥</div>
+      <h3>适合人群</h3>
+      <p>无论你是日常轻度使用者，还是需要快速获取信息分类的浏览者，都能找到合适入口：</p>
+      <ul>
+        <li>希望减少搜索步骤的普通用户</li>
+        <li>对工具与内容聚合有偏好的研究者</li>
+        <li>需要固定信息路径的轻度工作者</li>
+        <li>对分类导航有依赖的数字生活者</li>
+      </ul>
+      <div class="tag-group">
+        <span class="tag">日常</span>
+        <span class="tag">研究</span>
+        <span class="tag">工作者</span>
+        <span class="tag">数字用户</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 自然链接段落：嵌入“雷速” -->
+  <div class="link-card">
+    <p>
+      当你面对多个信息源无从下手时，分类导航能够有效降低筛选成本。
+      <a href="https://pc-tv-leisu.com">雷速</a>正是以这种思路组织内容，让访问者更快定位到所需的分类板块。
+      它不强调单一功能，而是提供一种结构化的访问起点。
+    </p>
+    <p>
+      对初次接触的用户而言，直接浏览首页的模块分区即可了解大致范围；
+      如果后续需要频繁查找同类信息，将 <a href="https://pc-tv-leisu.com">雷速</a> 加入书签作为固定入口也是一种常见做法。
+    </p>
+    <p>
+      总体而言，这类平台的价值在于减少信息碎片带来的迷失感，让每一次浏览都更有方向。
+    </p>
+  </div>
+
+  <!-- FAQ 摘要卡片 -->
+  <div class="faq-mini">
+    <h4>❓ 常见疑问摘要</h4>
+    <div class="faq-item">
+      <span class="faq-q">雷速是什么？</span>
+      <span class="faq-a">一个信息分类与工具索引平台，以清晰的卡片和分区展示内容。</span>
+    </div>
+    <div class="faq-item">
+      <span class="faq-q">需要注册吗？</span>
+      <span class="faq-a">多数板块可直接浏览，具体视功能模块而定，首页即见分晓。</span>
+    </div>
+    <div class="faq-item">
+      <span class="faq-q">如何快速体验？</span>
+      <span class="faq-a">直接访问 <a href="https://pc-tv-leisu.com">雷速</a> ，从顶部导航或卡片区域开始探索。</span>
+    </div>
+    <div class="faq-item">
+      <span class="faq-q">内容是否固定？</span>
+      <span class="faq-a">平台会根据信息结构做阶段性调整，保持分类的实用与清晰。</span>
+    </div>
+  </div>
+
+  <!-- 极简脚注 -->
+  <div class="footnote">
+    信息卡片 · 基于公开内容整理
+  </div>
+
+</div>
+</body>
+</html>
